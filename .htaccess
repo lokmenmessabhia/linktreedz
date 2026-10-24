@@ -1,0 +1,31 @@
+# Linkydz .htaccess
+RewriteEngine On
+
+# 1. Handle /u/{token} internal rewrite (Keep this first)
+RewriteRule ^u/([A-Za-z0-9]{6}(?:\.[a-z]+#?)?)$ linkpage.php?token=$1 [L,QSA]
+
+# 2. Redirect /anypage.php to /anypage (External Redirect for SEO)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*?([^/.]+)\.php\ [NC]
+RewriteRule ^ %2 [L,R=301]
+
+# 3. Internally rewrite /anypage to /anypage.php if it exists
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Prevent directory listing
+Options -Indexes
+
+# Block SCM metadata and sensitive file types
+RedirectMatch 404 /\.git
+<FilesMatch "(^\.|\.(env|sql|log|zip|bak|old|orig|save|swp|py|ini|lock)$)">
+    Require all denied
+</FilesMatch>
+
+# Deny one-off maintenance/migration scripts over HTTP
+<FilesMatch "^(server-migration|migrate-analytics-data|migrate-portal|create_rate_table)\.php$">
+    Require all denied
+</FilesMatch>
+
+# 404 Error handling
+ErrorDocument 404 404.php

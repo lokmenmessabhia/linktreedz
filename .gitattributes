@@ -1,0 +1,33 @@
+* text=auto eol=lf
+
+*.php text
+*.html text
+*.css text
+*.js text
+*.json text
+*.md text
+*.sql text
+*.svg text
+*.py text
+*.txt text
+.gitignore text
+.gitattributes text
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.mp3 binary
+*.mp4 binary
+*.webm binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+*.gz binary
+*.pdf binary

@@ -1,0 +1,45 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# User content and generated data (keep the directories, not their contents)
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/.htaccess
+/qr-codes/*
+!/qr-codes/.gitkeep
+!/qr-codes/.htaccess
+/backups/*
+!/backups/.gitkeep
+!/backups/.htaccess
+
+# Generated PDFs and build/deployment archives
+/lokpix-labels-*.pdf
+/temp_rgb_*.pdf
+*.zip
+
+# Runtime and temporary files
+*.log
+*.tmp
+*.bak
+*.old
+*.orig
+*.save
+*.swp
+*.swo
+.backup.lock
+
+# Tooling
+.opencode/node_modules/
+.opencode/package.json
+.opencode/package-lock.json
+.opencode/bun.lock
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.iml
