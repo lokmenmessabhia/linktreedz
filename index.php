@@ -501,11 +501,11 @@ $t = $texts[$lang];
             <img src="logolinky.png" alt="Linky" style="height: 35px; opacity: 0.6; margin-bottom: 2rem;">
             <p class="copyright">
                 &copy; <?php echo date('Y'); ?> • <?php echo $t['footer_made']; ?> 
-                <a href="https://www.instagram.com/lokpix.studio/">LOKPIX STUDIO</a> 
+                <?php if (STUDIO_NAME !== ''): ?><?php if (STUDIO_URL !== ''): ?><a href="<?php echo htmlspecialchars(STUDIO_URL); ?>"><?php echo htmlspecialchars(STUDIO_NAME); ?></a><?php else: ?><?php echo htmlspecialchars(STUDIO_NAME); ?><?php endif; ?><?php endif; ?> 
                 <?php echo $t['footer_in']; ?>
             </p>
             <div class="footer-social">
-                <a href="https://www.instagram.com/linky.dz/" class="social-circle"><i class="fab fa-instagram"></i></a>
+                <?php if (SOCIAL_INSTAGRAM_URL !== ''): ?><a href="<?php echo htmlspecialchars(SOCIAL_INSTAGRAM_URL); ?>" class="social-circle"><i class="fab fa-instagram"></i></a><?php endif; ?>
                 <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-circle"><i class="fab fa-tiktok"></i></a>
             </div>

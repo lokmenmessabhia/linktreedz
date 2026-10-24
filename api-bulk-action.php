@@ -502,7 +502,7 @@ if ($action === 'download_zip' || $action === 'download_pdf') {
 
         if ($action === 'download_zip') {
             $zip = new ZipArchive();
-            $zipName = "lokpix-tokens-" . time() . ".zip";
+            $zipName = SITE_SLUG . "-tokens-" . time() . ".zip";
             $zipPath = sys_get_temp_dir() . '/' . $zipName;
 
             if ($zip->open($zipPath, ZipArchive::CREATE) !== TRUE) {
@@ -962,7 +962,7 @@ if ($action === 'download_zip' || $action === 'download_pdf') {
         if (ob_get_length()) ob_end_clean();
         
         $temp_rgb_pdf = __DIR__ . '/temp_rgb_' . time() . '.pdf';
-        $output_cmyk_pdf = __DIR__ . '/lokpix-labels-cmyk-' . time() . '.pdf';
+        $output_cmyk_pdf = __DIR__ . '/' . SITE_SLUG . '-labels-cmyk-' . time() . '.pdf';
         
         try {
             // 1. Generate standard PDF to temporary file
@@ -970,19 +970,8 @@ if ($action === 'download_zip' || $action === 'download_pdf') {
             debug_log("Temporary RGB PDF created: " . basename($temp_rgb_pdf));
 
             // 2. Call Python to convert to CMYK
-            // Override with PYTHON_BIN in .env when needed.
+            // Set PYTHON_BIN in .env to use a specific interpreter or virtualenv.
             $pythonPath = getenv('PYTHON_BIN') ?: "python";
-
-            if (!getenv('PYTHON_BIN') && strpos(__DIR__, '/home/') === 0) {
-                // Auto-detect a cPanel virtualenv next to the account home.
-                $parts = explode('/', __DIR__);
-                $user = $parts[2] ?? '';
-                $possibleVenv = "/home/$user/virtualenv/pdf/3.12/bin/python";
-                if (file_exists($possibleVenv)) {
-                    $pythonPath = $possibleVenv;
-                    debug_log("Auto-detected local venv python: $pythonPath");
-                }
-            }
 
             $scriptPath = __DIR__ . "/convert_pdf_cmyk.py";
             $command = "$pythonPath " . escapeshellarg($scriptPath) . " " . escapeshellarg($temp_rgb_pdf) . " " . escapeshellarg($output_cmyk_pdf) . " --dpi 300 2>&1";
@@ -1021,7 +1010,7 @@ if ($action === 'download_zip' || $action === 'download_pdf') {
             if ($return_var === 0 && file_exists($output_cmyk_pdf)) {
                 debug_log("Serving CMYK PDF");
                 header('Content-Type: application/pdf');
-                header('Content-Disposition: attachment; filename="lokpix-labels-cmyk.pdf"');
+                header('Content-Disposition: attachment; filename="' . SITE_SLUG . '-labels-cmyk.pdf"');
                 header('Content-Length: ' . filesize($output_cmyk_pdf));
                 readfile($output_cmyk_pdf);
                 
@@ -1038,8 +1027,8 @@ if ($action === 'download_zip' || $action === 'download_pdf') {
             // Fallback to RGB if Python fails
             debug_log("Falling back to RGB PDF");
             header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment; filename="lokpix-labels.pdf"');
-            $pdf->Output('I', 'lokpix-labels.pdf');
+            header('Content-Disposition: attachment; filename="' . SITE_SLUG . '-labels.pdf"');
+            $pdf->Output('I', SITE_SLUG . '-labels.pdf');
             if (file_exists($temp_rgb_pdf)) @unlink($temp_rgb_pdf);
             exit;
         }

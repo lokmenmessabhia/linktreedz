@@ -29,8 +29,8 @@ if (!function_exists('linky_env')) {
 
 // Database Configuration (override via .env or real environment variables)
 define('DB_HOST', linky_env('DB_HOST', 'localhost'));
-define('DB_NAME', linky_env('DB_NAME', 'lokpixtreee'));
-define('DB_USER', linky_env('DB_USER', 'root'));
+define('DB_NAME', linky_env('DB_NAME', ''));
+define('DB_USER', linky_env('DB_USER', ''));
 define('DB_PASS', linky_env('DB_PASS', ''));
 
 // Application Configuration — auto-detects domain and base path
@@ -51,6 +51,17 @@ if ($baseDir === '/')
 // Optional BASE_URL override (e.g. https://yourdomain.com)
 define('BASE_URL', linky_env('BASE_URL', $protocol . '://' . $host . $baseDir));
 define('SITE_NAME', linky_env('SITE_NAME', 'Linky Dz'));
+define('SITE_SLUG', linky_env('SITE_SLUG', 'linky-dz'));
+
+// Footer branding / social links (optional; hidden when empty)
+define('STUDIO_NAME', linky_env('STUDIO_NAME', ''));
+define('STUDIO_URL', linky_env('STUDIO_URL', ''));
+define('SOCIAL_INSTAGRAM_URL', linky_env('SOCIAL_INSTAGRAM_URL', ''));
+
+// Locale and third-party service settings (set in .env)
+define('PHONE_COUNTRY_CODE', linky_env('PHONE_COUNTRY_CODE', ''));
+define('QR_API_URL', linky_env('QR_API_URL', ''));
+define('IP_API_URL', linky_env('IP_API_URL', ''));
 
 // Session Configuration
 define('SESSION_LIFETIME', 3600 * 24); // 24 hours

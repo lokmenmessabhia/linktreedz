@@ -122,7 +122,7 @@ foreach ($orders as $o) {
                                 <td style="font-weight: 800; font-family: 'Outfit', sans-serif;">#<?php echo $order['id']; ?></td>
                                 <td>
                                     <div style="font-weight: 700;"><?php echo htmlspecialchars($order['customer_name']); ?></div>
-                                    <a href="https://wa.me/213<?php echo preg_replace('/[^0-9]/', '', $order['phone']); ?>" target="_blank" class="whatsapp-link">
+                                    <a href="https://wa.me/<?php echo htmlspecialchars(PHONE_COUNTRY_CODE . preg_replace('/[^0-9]/', '', $order['phone'])); ?>" target="_blank" class="whatsapp-link">
                                         <i class="fa-brands fa-whatsapp"></i> <?php echo $order['phone']; ?>
                                     </a>
                                 </td>

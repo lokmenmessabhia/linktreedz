@@ -479,7 +479,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                             </div>
                             <div class="form-group">
                                 <label style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; display: block;">Phone Number</label>
-                                <input type="tel" id="phoneNumber" value="<?php echo htmlspecialchars($currentLinkPage['phone_number'] ?? ''); ?>" placeholder="+213 XXX XXX XXX" class="input-glass" oninput="document.getElementById('previewPhone').innerText = this.value;">
+                                <input type="tel" id="phoneNumber" value="<?php echo htmlspecialchars($currentLinkPage['phone_number'] ?? ''); ?>" placeholder="<?php echo htmlspecialchars(PHONE_COUNTRY_CODE !== '' ? '+' . PHONE_COUNTRY_CODE . ' XXX XXX XXX' : 'Phone number'); ?>" class="input-glass" oninput="document.getElementById('previewPhone').innerText = this.value;">
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 1.5rem;">
@@ -840,7 +840,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <h2 style="margin-bottom: 1.5rem;">Generate New QR Card</h2>
             <div class="form-group">
                 <label>Profile Name / Brand</label>
-                <input type="text" id="newProfileName" placeholder="e.g. Lokpix Creative" class="input-glass">
+                <input type="text" id="newProfileName" placeholder="e.g. Your Profile Name" class="input-glass">
             </div>
             <div class="modal-actions">
                 <button class="btn btn-primary" onclick="generateQRCard()">Generate & Create</button>
@@ -2013,7 +2013,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = 'lokpix-labels.pdf';
+                    a.download = '<?php echo htmlspecialchars(SITE_SLUG, ENT_QUOTES); ?>-labels.pdf';
                     document.body.appendChild(a);
                     a.click();
                     a.remove();

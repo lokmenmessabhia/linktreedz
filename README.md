@@ -110,11 +110,18 @@ project root. `.env` is ignored by git; use `.env.example` as the template.
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `DB_HOST` | `localhost` | MySQL host |
-| `DB_NAME` | `lokpixtreee` | Database name |
-| `DB_USER` | `root` | Database user |
+| `DB_NAME` | empty | Database name (required) |
+| `DB_USER` | empty | Database user (required) |
 | `DB_PASS` | empty | Database password |
 | `BASE_URL` | auto-detected | Public base URL, e.g. `https://example.com` |
 | `SITE_NAME` | `Linky Dz` | Brand name |
+| `SITE_SLUG` | `linky-dz` | Slug used in generated filenames |
+| `STUDIO_NAME` | empty | Footer credit name (hidden when empty) |
+| `STUDIO_URL` | empty | Footer credit link (hidden when empty) |
+| `SOCIAL_INSTAGRAM_URL` | empty | Footer Instagram link (hidden when empty) |
+| `PHONE_COUNTRY_CODE` | empty | Country code for phone placeholders and WhatsApp links |
+| `QR_API_URL` | empty | Optional QR fallback endpoint (used only if GD/phpqrcode is unavailable) |
+| `IP_API_URL` | empty | Optional IP geolocation endpoint for analytics |
 | `RECOVERY_USER` | `admin` | Username created by `reset-admin.php` |
 | `RECOVERY_EMAIL` | `admin@example.com` | Email created by `reset-admin.php` |
 | `RECOVERY_PASS` | empty | Password for the recovery account |

@@ -15,7 +15,7 @@
 !/backups/.htaccess
 
 # Generated PDFs and build/deployment archives
-/lokpix-labels-*.pdf
+/*-labels-*.pdf
 /temp_rgb_*.pdf
 *.zip
 

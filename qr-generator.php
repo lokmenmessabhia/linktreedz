@@ -82,9 +82,12 @@ class QRGenerator {
             $filename = $token . ($cardType !== 'all_links' ? '_' . $cardType : '') . '.png';
             $filepath = $this->qrRawDir . $filename;
             
-            // Use goqr.me API to generate QR code (since Google Charts is deprecated)
-            $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=' . $size . 'x' . $size . '&data=' . urlencode($url);
-            
+            if (QR_API_URL === '') {
+                throw new Exception('QR_API_URL is not configured');
+            }
+
+            $qrUrl = rtrim(QR_API_URL, '/') . '?size=' . $size . 'x' . $size . '&data=' . urlencode($url);
+
             $imageData = file_get_contents($qrUrl);
             if ($imageData === false) {
                 throw new Exception("Failed to fetch QR code from API");

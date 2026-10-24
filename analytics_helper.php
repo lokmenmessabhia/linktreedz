@@ -79,20 +79,23 @@ function getLocationFromIp($ip) {
     $locationData = ['country' => 'Unknown', 'city' => 'Unknown'];
 
     try {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://ip-api.com/json/{$ip}?fields=status,country,city");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 2); 
-        $response = curl_exec($ch);
-        curl_close($ch);
+        if (IP_API_URL !== '') {
+            $ch = curl_init();
+            $lookupUrl = rtrim(IP_API_URL, '/') . '/' . rawurlencode($ip) . '?fields=status,country,city';
+            curl_setopt($ch, CURLOPT_URL, $lookupUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 2); 
+            $response = curl_exec($ch);
+            curl_close($ch);
 
-        if ($response) {
-            $data = json_decode($response, true);
-            if (isset($data['status']) && $data['status'] === 'success') {
-                $locationData = [
-                    'country' => $data['country'] ?? 'Unknown',
-                    'city' => $data['city'] ?? 'Unknown'
-                ];
+            if ($response) {
+                $data = json_decode($response, true);
+                if (isset($data['status']) && $data['status'] === 'success') {
+                    $locationData = [
+                        'country' => $data['country'] ?? 'Unknown',
+                        'city' => $data['city'] ?? 'Unknown'
+                    ];
+                }
             }
         }
     } catch (Exception $e) {

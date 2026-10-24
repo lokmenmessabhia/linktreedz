@@ -181,7 +181,7 @@ $linkStats = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="form-group" style="margin-top: 1.5rem;">
                         <label style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 0.75rem; display: block;">Phone Number</label>
-                        <input type="tel" id="phoneNumber" value="<?php echo htmlspecialchars($linkPage['phone_number'] ?? ''); ?>" placeholder="+213 XXX XXX XXX" style="height: 54px; background: rgba(0,0,0,0.3); width: 100%; border: 1px solid var(--glass-border); border-radius: 1rem; padding: 0 1.25rem; color: #fff; font-size: 1rem; transition: all 0.3s;" onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 0 3px rgba(0,133,63,0.2)';" onblur="this.style.borderColor='var(--glass-border)'; this.style.boxShadow='none';" oninput="document.getElementById('previewPhone').innerText = this.value;">
+                        <input type="tel" id="phoneNumber" value="<?php echo htmlspecialchars($linkPage['phone_number'] ?? ''); ?>" placeholder="<?php echo htmlspecialchars(PHONE_COUNTRY_CODE !== '' ? '+' . PHONE_COUNTRY_CODE . ' XXX XXX XXX' : 'Phone number'); ?>" style="height: 54px; background: rgba(0,0,0,0.3); width: 100%; border: 1px solid var(--glass-border); border-radius: 1rem; padding: 0 1.25rem; color: #fff; font-size: 1rem; transition: all 0.3s;" onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 0 3px rgba(0,133,63,0.2)';" onblur="this.style.borderColor='var(--glass-border)'; this.style.boxShadow='none';" oninput="document.getElementById('previewPhone').innerText = this.value;">
                     </div>
                 </div>
 

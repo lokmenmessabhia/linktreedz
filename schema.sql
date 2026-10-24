@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `lokpixtree`
+-- Database: `linkydz`
 --
 
 -- --------------------------------------------------------
@@ -77,15 +77,6 @@ CREATE TABLE `links` (
   `priority` int(11) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `links`
---
-
-//aadsdasdas.com', 1, 0, '2026-01-12 11:04:06'),
-(2, 9, 'test', 'twest.com', 1, 0, '2026-01-12 11:25:04'),
-(3, 9, 'Instagram', 'https://instagram.com/lokpix.studio', 1, 0, '2026-01-12 11:47:59'),
-(4, 9, 'Facebook', 'https://facebook.com/yourprofile', 1, 0, '2026-01-12 11:49:11');
 
 -- --------------------------------------------------------
 
@@ -267,6 +258,25 @@ CREATE TABLE IF NOT EXISTS login_attempts (
     ip_address VARCHAR(45) NOT NULL,
     attempt_time INT UNSIGNED NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS `settings` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `setting_key` VARCHAR(100) NOT NULL,
+    `setting_value` TEXT DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `setting_key` (`setting_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rate_limits` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `ip_address` VARCHAR(45) NOT NULL,
+    `action` VARCHAR(50) NOT NULL,
+    `attempt_time` INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_ip_action` (`ip_address`, `action`),
+    KEY `idx_time` (`attempt_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
